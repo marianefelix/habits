@@ -1,4 +1,15 @@
 import { Check } from "phosphor-react";
+import { Checkbox } from "./Checkbox";
+
+const availableWeekDays = [
+    'Domingo',
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira',
+    'Sábado'
+];
 
 export const NewHabitForm = () => {
     return (
@@ -22,6 +33,16 @@ export const NewHabitForm = () => {
             <label htmlFor="" className="font-semibold leading-tight mt-4">
                 Qual a recorrência?
             </label>
+
+            <div className="mt-3 flex flex-col gap-2">
+                {availableWeekDays.map((weekDay) => (
+                    <Checkbox key={weekDay}>
+                        <span className="text-white leading-tight">
+                            {weekDay}
+                        </span>
+                    </Checkbox>
+                ))}
+            </div>
 
             <button
                 type="submit"
