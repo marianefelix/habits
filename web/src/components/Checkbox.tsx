@@ -7,14 +7,16 @@ import { Check } from 'phosphor-react';
 
 interface CheckboxProps {
     onCheckedChange?: (checked: CheckedState) => void;
+    checked?: boolean;
     children: React.ReactNode;
 }
 
-export const Checkbox = ({ children, onCheckedChange }: CheckboxProps) => {
+export const Checkbox = ({ children, checked, onCheckedChange }: CheckboxProps) => {
     return (
         <CheckboxRadix.Root
             className="flex items-center gap-3 group"
             onCheckedChange={onCheckedChange}
+            checked={checked}
         >
             <div className="h-8 w-8 rounded-lg 
                 flex items-center justify-center 
