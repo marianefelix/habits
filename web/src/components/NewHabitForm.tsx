@@ -1,4 +1,5 @@
 import { Check } from "phosphor-react";
+import { FormEvent, useState } from "react";
 import { Checkbox } from "./Checkbox";
 
 const availableWeekDays = [
@@ -12,8 +13,25 @@ const availableWeekDays = [
 ];
 
 export const NewHabitForm = () => {
+    const [title, setTitle] = useState('');
+    const [weekDays, setWeekDays] = useState<number[]>([]);
+
+    const createNewHabit = (event: FormEvent) => {
+        event.preventDefault();
+    };
+
+    const handleToggleWeekDay = (weekDay: number) => {
+        if (weekDays.includes(weekDay)) {
+            const weekDaysWithRemovedOne = weekDays.filter((day) => day !== weekDay);
+            setWeekDays(weekDaysWithRemovedOne);
+        } else {
+            const weekDaysWithAddedOne = [...weekDays, weekDay];
+            setWeekDays(weekDaysWithAddedOne);
+        }
+    };
+
     return (
-        <form className="w-full flex flex-col mt-6">
+        <form onSubmit={createNewHabit} className="w-full flex flex-col mt-6">
             <label 
                 htmlFor="title"
                 className="font-semibold leading-tight"
@@ -28,6 +46,7 @@ export const NewHabitForm = () => {
                     p-4 rounded-lg mt-3 bg-zinc-800 
                     text-white placeholder:text-zinc-400"
                 autoFocus
+                onChange={(event) => setTitle(event.target.value)}
             />
 
             <label htmlFor="" className="font-semibold leading-tight mt-4">
@@ -35,8 +54,11 @@ export const NewHabitForm = () => {
             </label>
 
             <div className="mt-3 flex flex-col gap-2">
-                {availableWeekDays.map((weekDay) => (
-                    <Checkbox key={weekDay}>
+                {availableWeekDays.map((weekDay, index) => (
+                    <Checkbox 
+                        key={weekDay}
+                        onCheckedChange={() => handleToggleWeekDay(index)}
+                    >
                         <span className="text-white leading-tight">
                             {weekDay}
                         </span>

@@ -1,15 +1,20 @@
-import * as CheckboxRadix from '@radix-ui/react-checkbox';
-import { Check } from 'phosphor-react';
 import React from 'react';
 
+import * as CheckboxRadix from '@radix-ui/react-checkbox';
+import { CheckedState } from '@radix-ui/react-checkbox';
+
+import { Check } from 'phosphor-react';
+
 interface CheckboxProps {
+    onCheckedChange?: (checked: CheckedState) => void;
     children: React.ReactNode;
 }
 
-export const Checkbox = ({ children }: CheckboxProps) => {
+export const Checkbox = ({ children, onCheckedChange }: CheckboxProps) => {
     return (
         <CheckboxRadix.Root
             className="flex items-center gap-3 group"
+            onCheckedChange={onCheckedChange}
         >
             <div className="h-8 w-8 rounded-lg 
                 flex items-center justify-center 
