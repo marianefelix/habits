@@ -17,7 +17,7 @@ interface HabitsInfo {
     completedHabits: string[];
 }
 
-export const HabitList = ({ date, onCompletedChanged }: HabitListProps) => {
+export const HabitList = ({date, onCompletedChanged }: HabitListProps) => {
     const [habitsInfo, setHabitsInfo] = useState<HabitsInfo>();
     const isDateInPast = dayjs(date).endOf('day').isBefore(new Date());
 
@@ -34,11 +34,14 @@ export const HabitList = ({ date, onCompletedChanged }: HabitListProps) => {
     const handleToggleHabit = async (habitId: string) => {
         await api.patch(`/habits/${habitId}/toggle`);
     
-        const isHabitAlreadyCompleted = habitsInfo!.completedHabits.includes(habitId);
+        const isHabitAlreadyCompleted = 
+            habitsInfo!.completedHabits.includes(habitId);
         let completedHabits: string[] = [];
     
         if (isHabitAlreadyCompleted) {
-            completedHabits = habitsInfo!.completedHabits.filter((id) => id !== habitId);
+            completedHabits = habitsInfo!.completedHabits.filter(
+                (id) => id !== habitId
+            );
         } else {
             completedHabits = [...habitsInfo!.completedHabits, habitId]
         }
